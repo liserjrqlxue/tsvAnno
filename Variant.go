@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"strings"
+
 	"github.com/brentp/irelate/interfaces"
 	"github.com/brentp/vcfgo"
-	simple_util "github.com/liserjrqlxue/simple-util"
-	"strings"
+	simpleUtil "github.com/liserjrqlxue/simple-util"
 )
 
 type Variant struct {
@@ -97,7 +98,7 @@ func (i InfoByte) Set(key string, value interface{}) error {
 }
 func (i InfoByte) Bytes() []byte {
 	jsonBytes, err := json.Marshal(i.Info)
-	simple_util.CheckErr(err)
+	simpleUtil.CheckErr(err)
 	return jsonBytes
 }
 

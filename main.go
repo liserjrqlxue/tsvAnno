@@ -21,8 +21,8 @@ import (
 	"github.com/brentp/irelate"
 	"github.com/brentp/irelate/interfaces"
 	"github.com/brentp/xopen"
-	. "github.com/liserjrqlxue/vcfanno/api"
-	. "github.com/liserjrqlxue/vcfanno/shared"
+	"github.com/liserjrqlxue/vcfanno/api"
+	"github.com/liserjrqlxue/vcfanno/shared"
 )
 
 var VERSION = "0.3.2"
@@ -73,7 +73,7 @@ func main() {
 	}
 	runtime.GOMAXPROCS(*procs)
 
-	var config Config
+	var config shared.Config
 	if _, err := toml.DecodeFile(inFiles[0], &config); err != nil {
 		if strings.Contains(err.Error(), "Expected value but found") {
 			_, _ = fmt.Fprintln(os.Stderr, "\nNOTE: you must quote values in the conf file, e.g. fields=['AC', 'AN'] instead of fields=[AC, AN]")
@@ -82,7 +82,7 @@ func main() {
 	}
 	config.Base = *base
 	for _, a := range config.Annotation {
-		err := CheckAnno(&a)
+		err := shared.CheckAnno(&a)
 		if err != nil {
 			log.Fatal("CheckAnno err:", err)
 		}
@@ -94,7 +94,7 @@ func main() {
 	}
 	for i := range config.PostAnnotation {
 		r := config.PostAnnotation[i]
-		err := CheckPostAnno(&r)
+		err := shared.CheckPostAnno(&r)
 		if err != nil {
 			log.Fatal(fmt.Sprintf("error in postannotation section %s err: %s", r.Name, err))
 		}
@@ -115,9 +115,9 @@ func main() {
 		}()
 	*/
 
-	luaString := ReadLua(*lua)
+	luaString := shared.ReadLua(*lua)
 	strict := !*notstrict
-	var a = NewAnnotator(sources, luaString, *ends, strict, config.PostAnnotation)
+	var a = api.NewAnnotator(sources, luaString, *ends, strict, config.PostAnnotation)
 
 	var out io.Writer = os.Stdout
 	defer simpleUtil.DeferClose(os.Stdout)
@@ -163,9 +163,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	aends := INTERVAL
+	aends := api.INTERVAL
 	if *ends {
-		aends = BOTH
+		aends = api.BOTH
 	}
 
 	lastMsg := struct {

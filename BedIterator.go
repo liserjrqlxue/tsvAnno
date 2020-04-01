@@ -3,12 +3,13 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/brentp/irelate/interfaces"
-	"github.com/brentp/irelate/parsers"
-	"github.com/brentp/vcfgo"
 	"io"
 	"strconv"
 	"strings"
+
+	"github.com/brentp/irelate/interfaces"
+	"github.com/brentp/irelate/parsers"
+	"github.com/brentp/vcfgo"
 )
 
 type Writer struct {
@@ -29,7 +30,7 @@ type Reader struct {
 	Header     []string
 }
 
-func (vr *Reader) AddInfoToHeader(id string, itype string, number string, description string) {
+func (vr *Reader) AddInfoToHeader(id, _, _, _ string) {
 	vr.Header = append(vr.Header, id)
 }
 
@@ -58,7 +59,7 @@ func (vr *Reader) Parse(fields []string) *Variant {
 		Chromosome: fields[0],
 		Pos:        pos,
 		Reference:  fields[3],
-		Alternate:  strings.Split(string(fields[4]), ","),
+		Alternate:  strings.Split(fields[4], ","),
 	}
 	v.LineNumber = vr.LineNumber
 	v.Info_ = NewInfoByte(fields, vr.Header)
