@@ -6,7 +6,7 @@ import (
 
 	"github.com/brentp/irelate/interfaces"
 	"github.com/brentp/vcfgo"
-	simpleUtil "github.com/liserjrqlxue/simple-util"
+	simpleUtil "github.com/liserjrqlxue/goUtil/simpleUtil"
 )
 
 type Variant struct {
