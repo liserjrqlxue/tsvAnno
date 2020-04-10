@@ -6,7 +6,7 @@ import (
 
 	"github.com/brentp/irelate/interfaces"
 	"github.com/brentp/vcfgo"
-	simpleUtil "github.com/liserjrqlxue/goUtil/simpleUtil"
+	"github.com/liserjrqlxue/goUtil/simpleUtil"
 )
 
 type Variant struct {
@@ -81,7 +81,7 @@ func NewInfoByte(info []string, h []string) *InfoByte {
 	var item = make(map[string]string)
 	for i, key := range h {
 		if i < len(info) {
-			item[key] = string(info[i])
+			item[key] = info[i]
 		}
 	}
 	return &InfoByte{Info: item, header: h}

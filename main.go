@@ -14,15 +14,15 @@ import (
 	"sync"
 	"time"
 
-	simpleUtil "github.com/liserjrqlxue/goUtil/simpleUtil"
-
 	"github.com/BurntSushi/toml"
 	"github.com/biogo/hts/bgzf"
 	"github.com/brentp/irelate"
 	"github.com/brentp/irelate/interfaces"
 	"github.com/brentp/xopen"
-	"github.com/liserjrqlxue/vcfanno/api"
-	"github.com/liserjrqlxue/vcfanno/shared"
+	"github.com/liserjrqlxue/goUtil/simpleUtil"
+
+	"github.com/liserjrqlxue/tsvAnno/api"
+	"github.com/liserjrqlxue/tsvAnno/shared"
 )
 
 var VERSION = "0.3.2"
@@ -48,7 +48,7 @@ func init() {
 func main() {
 	_, _ = fmt.Fprintf(
 		os.Stderr,
-		`=============================================\nvcfanno version %s [built with %s]\n\nsee: https://github.com/brentp/vcfanno\n=============================================\n`,
+		"=============================================\nvcfanno version %s [built with %s]\n\nsee: https://github.com/brentp/vcfanno\n=============================================\n",
 		VERSION,
 		runtime.Version(),
 	)
@@ -62,7 +62,7 @@ func main() {
 	flag.Parse()
 	inFiles := flag.Args()
 	if len(inFiles) != 2 {
-		fmt.Printf(`Usage:\n%s config.toml input.vcf > annotated.vcf\n\n`, os.Args[0])
+		fmt.Printf("Usage:\n%s config.toml input.vcf > annotated.vcf\n\n", os.Args[0])
 		flag.PrintDefaults()
 		return
 	}
